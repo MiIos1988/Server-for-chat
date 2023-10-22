@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/MiIos1988/Server-for-chat#readme",
   "dependencies": {
+    "dotenv": "^16.3.1",
     "socket.io": "^4.7.2"
   }
 }
