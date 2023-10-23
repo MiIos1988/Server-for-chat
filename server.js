@@ -16,9 +16,10 @@ const io = require("socket.io")(server, {
 io.on("connection", (socket) => {
     console.log("Send Email", socket.id);
   
-    // socket.on("enterRoom", (data) => {
-    //   socket.join(data);
-    // });
+    socket.on("enterRoom", (data) => {
+      socket.join(data);
+      console.log(data, "Room")
+    });
     // socket.on("sendMsg", (data) => {
     //   console.log("Room", data);
     //   socket.to(data.room).emit("receiveMessage", data);
