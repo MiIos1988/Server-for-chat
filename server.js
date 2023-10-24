@@ -4,7 +4,7 @@ const server = require("http").createServer(app);
 const dotenv = require('dotenv');
 const sendMail = require("./services/mailServices");
 dotenv.config();
-const portNumber = process.env.PORT || 6500;
+const portNumber = 5500|| 6000;
 
 app.use(cors());
 const io = require("socket.io")(server, {
