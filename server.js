@@ -2,6 +2,7 @@ const app = require("express")();
 const cors = require("cors");
 const server = require("http").createServer(app);
 const dotenv = require('dotenv');
+const sendMail = require("./services/mailServices");
 dotenv.config();
 const portNumber = process.env.PORT || 6500;
 
@@ -17,8 +18,12 @@ io.on("connection", (socket) => {
     console.log("Send Email", socket.id);
   
     socket.on("enterRoom", (data) => {
-      socket.join(data);
-      console.log(data, "Room")
+        const numberRoom = Math.floor(Math.random() * 900000) + 100000;
+      socket.join(numberRoom);
+      console.log(numberRoom, "Room")
+
+      sendMail(numberRoom, data)
+      
     });
     // socket.on("sendMsg", (data) => {
     //   console.log("Room", data);
