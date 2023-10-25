@@ -18,11 +18,13 @@ io.on("connection", (socket) => {
     console.log("Send Email", socket.id);
   
     socket.on("enterRoom", (data) => {
+      if(!data.query){
         const numberRoom = Math.floor(Math.random() * 900000) + 100000;
-      socket.join(numberRoom);
-      console.log(numberRoom, "Room")
-
-      sendMail(numberRoom, data)
+        socket.join(numberRoom)
+        sendMail(numberRoom, data.ip)
+      } else{
+        socket.join(data.query)
+      }     
       
     });
     // socket.on("sendMsg", (data) => {
