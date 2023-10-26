@@ -15,22 +15,20 @@ const io = require("socket.io")(server, {
 });
 
 io.on("connection", (socket) => {
-    console.log("Send Email", socket.id);
-  
     socket.on("enterRoom", (data) => {
       if(!data.query){
-        const numberRoom = Math.floor(Math.random() * 900000) + 100000;
-        socket.join(numberRoom)
-        sendMail(numberRoom, data.ip)
+        socket.join(data.room)
+        sendMail(data.room, data.ip)
       } else{
         socket.join(data.query)
-      }     
+      }   
+       
       
     });
-    // socket.on("sendMsg", (data) => {
-    //   console.log("Room", data);
-    //   socket.to(data.room).emit("receiveMessage", data);
-    // });
+    socket.on("sendMsg", (data) => {
+      console.log(data) 
+      socket.to(data.room).emit("receiveMessage", data.msg);
+    });
   
     socket.on("disconnect", () => {
       console.log("User Disconnected", socket.id);
