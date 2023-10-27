@@ -19,7 +19,7 @@ io.on("connection", (socket) => {
   socket.on("enterRoom", (data) => {
     if (!data.query) {
       socket.join(data.room);
-      sendMail(data.room, data.ip);
+      // sendMail(data.room, data.ip);
     } else {
       socket.join(Number(data.query));
     }
