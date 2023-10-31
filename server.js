@@ -19,13 +19,14 @@ io.on("connection", (socket) => {
   socket.on("enterRoom", (data) => {
     if (!data.query) {
       socket.join(data.room);
-      // sendMail(data.room, data.ip);
+      sendMail(data.room, data.ip);
     } else {
       socket.join(Number(data.query));
     }
   });
   socket.on("sendMsg", (data) => {
-    socket.to(data.room).emit("receiveMessage", data.msg);
+    console.log(data)
+    socket.to(data.room).emit("receiveMessage", {msg: data.msg, author: data.author});
   });
   socket.on("disconnect", () => {
     console.log("User Disconnected", socket.id);
