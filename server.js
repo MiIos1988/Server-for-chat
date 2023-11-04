@@ -28,9 +28,14 @@ io.on("connection", (socket) => {
     console.log(data)
     socket.to(data.room).emit("receiveMessage", {msg: data.msg, author: data.author});
   });
+  socket.on("chat-visibility", (data) => {
+    console.log(data)
+    socket.to(data.room).emit("showChat", data.chat)
+  });
   socket.on("disconnect", () => {
     console.log("User Disconnected", socket.id);
   });
+  
 });
 
 server.listen(portNumber, (error) => {
