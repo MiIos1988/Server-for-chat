@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 const sendMail = require("./services/mailServices");
 dotenv.config();
 const portNumber = 5500 || 6000;
-
+const room = new Map();
 
 app.use(cors());
 const io = require("socket.io")(server, {
@@ -18,9 +18,10 @@ const io = require("socket.io")(server, {
 io.on("connection", (socket) => {
   console.log("User connect", socket.id);
   socket.on("enterRoom", (data) => {
+    room.set("roomId", data.room)
     if (!data.query) {
       socket.join(data.room);
-      // sendMail(data.room, data.ip);
+      sendMail(data.room, data.ip);
     } else {
       socket.join(Number(data.query));
     }
@@ -32,7 +33,9 @@ io.on("connection", (socket) => {
     socket.to(data.room).emit("showChat", data.chat)
   });
   socket.on("disconnect", () => {
-    console.log("User Disconnected", socket.id);
+    const roomChat = room.get("roomId");
+    socket.to(roomChat).emit("clientDisconnect", {msg:"User Disconnected"});
+    console.log("User Disconnected", roomChat);
   });
   
 });
