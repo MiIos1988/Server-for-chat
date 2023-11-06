@@ -6,6 +6,7 @@ const sendMail = require("./services/mailServices");
 dotenv.config();
 const portNumber = 5500 || 6000;
 
+
 app.use(cors());
 const io = require("socket.io")(server, {
   cors: {
@@ -19,17 +20,15 @@ io.on("connection", (socket) => {
   socket.on("enterRoom", (data) => {
     if (!data.query) {
       socket.join(data.room);
-      sendMail(data.room, data.ip);
+      // sendMail(data.room, data.ip);
     } else {
       socket.join(Number(data.query));
     }
   });
   socket.on("sendMsg", (data) => {
-    console.log(data)
     socket.to(data.room).emit("receiveMessage", {msg: data.msg, author: data.author});
   });
   socket.on("chat-visibility", (data) => {
-    console.log(data)
     socket.to(data.room).emit("showChat", data.chat)
   });
   socket.on("disconnect", () => {
