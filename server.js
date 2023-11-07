@@ -16,7 +16,6 @@ const io = require("socket.io")(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("User connect", socket.id);
   socket.on("enterRoom", (data) => {
     room.set("roomId", data.room)
     if (!data.query) {
