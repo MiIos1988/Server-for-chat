@@ -11,12 +11,20 @@ const transporter = nodemailer.createTransport({
     }
 })
 const sendMail = function (room, ip) {
-
+    console.log(ip.data.country_name)
     let mailOptions = {
         from: process.env.EMAIL_USERNAME , 
         to: process.env.EMAIL_USERNAME, 
-        subject: `******PORTFOLIO ${ip}**********`,
-        html: `http://localhost:3000?room=${room}`
+        subject: `******PORTFOLIO ${ip.data.country_name}**********`,
+        html: `
+                http://localhost:3000?room=${room}
+            <div>
+                <p>Ip address: ${ip.data.ip}</p>
+                <p>City: ${ip.data.city}  - Country: ${ip.data.country_name}</p>
+                <p>Org: ${ip.data.org}</p>
+                <p>Map: </p> https://www.google.com/maps?q=${ip.data.latitude},${ip.data.longitude}
+            </div>
+                    `
     }
     return transporter.sendMail(mailOptions)
 }

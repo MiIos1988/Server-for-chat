@@ -20,7 +20,7 @@ io.on("connection", (socket) => {
     room.set("roomId", data.room)
     if (!data.query) {
       socket.join(data.room);
-      sendMail(data.room, data.ip);
+      sendMail(data.room, data.dataIp);
     } else {
       socket.join(Number(data.query));
     }
@@ -34,7 +34,6 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     const roomChat = room.get("roomId");
     socket.to(roomChat).emit("clientDisconnect", {msg:"User Disconnected"});
-    console.log("User Disconnected", roomChat);
   });
   
 });
