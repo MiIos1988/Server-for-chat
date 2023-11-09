@@ -29,6 +29,7 @@ io.on("connection", (socket) => {
     socket.to(data.room).emit("receiveMessage", {msg: data.msg, author: data.author});
   });
   socket.on("chat-visibility", (data) => {
+    console.log("chat-visibility", data.chat)
     socket.to(data.room).emit("showChat", data.chat)
   });
   socket.on("disconnect", () => {
