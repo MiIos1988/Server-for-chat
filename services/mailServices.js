@@ -17,7 +17,7 @@ const sendMail = function (room, ip) {
         to: process.env.EMAIL_USERNAME, 
         subject: `******PORTFOLIO ${ip.data.country_name}**********`,
         html: `
-                http://localhost:3000?room=${room}
+        https://sudimacmilos.vercel.app/?room=${room}
             <div>
                 <p>Ip address: ${ip.data.ip}</p>
                 <p>City: ${ip.data.city}  - Country: ${ip.data.country_name}</p>
