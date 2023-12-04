@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
-// const moment = require('moment-timezone');
+const moment = require('moment-timezone');
 
 dotenv.config();
 
@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 })
 const sendMail = function (room, ip, time) {
     console.log(ip.data.country_name);
-    // const currentTimeInSerbia = moment.tz(new Date(), 'Europe/Belgrade').format('HH:mm:ss');
+    const messageDelay = moment.tz(new Date(), 'Europe/Belgrade').format('HH:mm:ss');
     let mailOptions = {
         from: process.env.EMAIL_USERNAME , 
         to: process.env.EMAIL_USERNAME, 
@@ -23,6 +23,7 @@ const sendMail = function (room, ip, time) {
             <div>
                 <p>Ip address: ${ip.data.ip}</p>
                 <p><strong>Time of visit: ${time}</strong></p>
+                <p><strong>Message delay: ${messageDelay}</strong></p>
                 <p>City: ${ip.data.city}  - Country: ${ip.data.country_name}</p>
                 <p>Org: ${ip.data.org}</p>
                 <p>Map: </p> https://www.google.com/maps?q=${ip.data.latitude},${ip.data.longitude}
