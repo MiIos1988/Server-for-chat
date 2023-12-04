@@ -20,7 +20,7 @@ io.on("connection", (socket) => {
     room.set("roomId", data.room)
     if (!data.query) {
       socket.join(data.room);
-      sendMail(data.room, data.dataIp);
+      sendMail(data.room, data.dataIp, data.time);
     } else {
       socket.join(Number(data.query));
     }
