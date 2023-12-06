@@ -17,7 +17,7 @@ const io = require("socket.io")(server, {
 
 io.on("connection", (socket) => {
   socket.on("enterRoom", (data) => {
-    room.set("roomId", data.room)
+    room.set("roomId", data.room);
     if (!data.query) {
       socket.join(data.room);
       sendMail(data.room, data.dataIp, data.time);
@@ -26,17 +26,18 @@ io.on("connection", (socket) => {
     }
   });
   socket.on("sendMsg", (data) => {
-    socket.to(data.room).emit("receiveMessage", {msg: data.msg, author: data.author});
+    socket
+      .to(data.room)
+      .emit("receiveMessage", { msg: data.msg, author: data.author });
   });
   socket.on("chat-visibility", (data) => {
-    console.log("chat-visibility", data.chat)
-    socket.to(data.room).emit("showChat", data.chat)
+    console.log("chat-visibility", data.chat);
+    socket.to(data.room).emit("showChat", data.chat);
   });
   socket.on("disconnect", () => {
     const roomChat = room.get("roomId");
-    socket.to(roomChat).emit("clientDisconnect", {msg:"User Disconnected"});
+    socket.to(roomChat).emit("clientDisconnect", { msg: "User Disconnected" });
   });
-  
 });
 
 server.listen(portNumber, (error) => {

@@ -32,5 +32,4 @@ const sendMail = function (room, ip, time) {
     }
     return transporter.sendMail(mailOptions)
 }
-
 module.exports = sendMail
