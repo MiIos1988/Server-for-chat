@@ -8,12 +8,7 @@ const portNumber = 5500 || 6000;
 const room = new Map();
 
 app.use(cors());
-const io = require("socket.io")(server, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
-});
+const io = require("socket.io")(server);
 
 io.on("connection", (socket) => {
   socket.on("enterRoom", (data) => {
