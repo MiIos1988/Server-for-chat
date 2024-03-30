@@ -8,7 +8,12 @@ const portNumber = 5500 || 6000;
 const room = new Map();
 
 app.use(cors());
-const io = require("socket.io")(server);
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "https://sudimacmilos.vercel.app",
+    methods: ["GET", "POST"],
+  },
+});
 
 io.on("connection", (socket) => {
   socket.on("enterRoom", (data) => {
