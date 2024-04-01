@@ -10,8 +10,7 @@ const room = new Map();
 app.use(cors());
 const io = require("socket.io")(server, {
   cors: {
-    origin: "https://sudimacmilos.vercel.app",
-    methods: ["GET", "POST"],
+    origin: "https://sudimacmilos.vercel.app"
   },
 });
 
